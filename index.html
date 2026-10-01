@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>稍息立正海軍好 - 點題戰術板</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans">
+
+  <!-- 頁首 Header -->
+  <header class="bg-blue-950 border-b border-blue-800 p-4 text-center sticky top-0 z-20 shadow-lg">
+    <h1 class="text-2xl font-black text-amber-400 tracking-wider">
+      <i class="fa-solid fa-anchor mr-2 text-blue-400"></i>稍息立正海軍好
+    </h1>
+    <p class="text-xs text-blue-300 mt-1">海軍關主戰術板 — 15 題完整動作對照表</p>
+  </header>
+
+  <main class="container mx-auto px-4 py-4 max-w-lg flex-1 flex flex-col space-y-4">
+
+    <!-- 全景動作圖示（完整呈現） -->
+    <div class="bg-slate-800 p-2 rounded-2xl border-2 border-amber-400/80 shadow-xl overflow-hidden">
+      <div class="text-xs font-bold text-amber-400 mb-1 px-1 flex items-center justify-between">
+        <span><i class="fa-solid fa-image mr-1"></i> 全體搞怪動作對照圖</span>
+        <span class="text-[10px] text-slate-400">（可點擊看大圖）</span>
+      </div>
+      <a href="https://lh3.googleusercontent.com/d/1TKuBy-6tHwAsY770NIE5uR_L2PocdWRJ" target="_blank">
+        <img src="https://lh3.googleusercontent.com/d/1TKuBy-6tHwAsY770NIE5uR_L2PocdWRJ" 
+             alt="稍息立正海軍好 15題動作大圖" 
+             class="w-full h-auto rounded-lg object-contain bg-slate-900 hover:opacity-95 transition" />
+      </a>
+    </div>
+
+    <!-- 當前選中題目卡片區 -->
+    <div id="displayCard" class="bg-gradient-to-br from-blue-900 to-indigo-950 border-2 border-amber-400 rounded-2xl p-5 shadow-2xl relative">
+      <div class="flex items-center justify-between mb-2 border-b border-blue-800/80 pb-2">
+        <span class="text-xs font-black bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-full" id="poseId">題目 1 / 15</span>
+        <span class="text-xs text-blue-300 font-bold"><i class="fa-solid fa-bullhorn text-amber-400 mr-1"></i>關主威嚴台詞</span>
+      </div>
+
+      <!-- 題目名稱 -->
+      <h2 id="poseTitle" class="text-3xl font-black text-amber-300 mb-2">
+        【誰放屁了】
+      </h2>
+
+      <!-- 關主台詞 -->
+      <div id="navyLine" class="text-sm font-semibold text-slate-200 bg-slate-900/60 p-3 rounded-lg border border-blue-800/50 mb-3 italic">
+        「誰的嘴角在動？是不是想用笑聲攻擊我！這什麼味道？是不是你放屁了！」
+      </div>
+
+      <!-- 動作說明 -->
+      <div class="bg-slate-900/80 rounded-xl p-3.5 border border-blue-700/60">
+        <div class="text-xs font-bold text-amber-400 mb-1">
+          <i class="fa-solid fa-child-reaching mr-1"></i>小朋友模仿要領：
+        </div>
+        <p id="poseDesc" class="text-base font-bold text-white leading-relaxed">
+          捏鼻子 ＋ 手抓屁股 ＋ 單腳微抬
+        </p>
+      </div>
+    </div>
+
+    <!-- 15 題點選目錄 -->
+    <div class="flex-1">
+      <h3 class="text-sm font-black text-blue-300 mb-2 flex items-center gap-1">
+        <i class="fa-solid fa-list-check text-amber-400"></i> 選擇指令題目 (點擊切換)：
+      </h3>
+
+      <div id="poseGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <!-- 由 JavaScript 動態生成按鈕 -->
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="p-3 text-center text-xs text-slate-500 border-t border-slate-800">
+    2026 班籃聚 - 下午海軍小遊戲專用 Web App
+  </footer>
+
+  <script>
+    // 15 題題目資料庫
+    const poses = [
+      { id: 1, title: "誰放屁了", desc: "捏鼻子 ＋ 手抓屁股 ＋ 單腳微抬", line: "誰的嘴角在動？是不是想用笑聲攻擊我！這什麼味道？是不是你放屁了！捏好不准放開！" },
+      { id: 2, title: "腳麻了", desc: "頭頂比大愛心 ＋ 單腳站立 ＋ 吐舌頭 ＋ 眨一隻眼睛裝可愛", line: "腳麻了是不是？手放頭頂比愛心，我看誰敢掉下來！站穩了！" },
+      { id: 3, title: "大猩猩嚇魔王", desc: "蹲大馬步 ＋ 雙手握拳 ＋ 下巴極度凸出", line: "魔王來了！拿出你們最威猛的猩猩臉！下巴凸出來！誰沒凸出來扣分！" },
+      { id: 4, title: "招財貓", desc: "雙腳內八字併攏 ＋ 身體向前微噘屁股 ＋ 雙手做出貓爪姿勢放在臉頰兩側", line: "海軍招財貓！誰笑出來就準備被抓去餵魚！屁股噘好，不准動！" },
+      { id: 5, title: "大白鯊開口", desc: "雙手放在頭頂與下巴下方（做出張開大嘴巴姿勢） ＋ 眼睛張大、嘴巴變「O」", line: "大白鯊來了！鯊魚大嘴巴張開！眼睛張到最大！不准眨眼！" },
+      { id: 6, title: "小海龜縮頭", desc: "身體蹲低，雙手抱頭，頭極度往胸口縮（像躲進龜殼裡）", line: "砲擊來襲！全體縮進龜殼裡！誰的頭露出來就被砲彈打中！" },
+      { id: 7, title: "海賊望遠鏡", desc: "雙手在眼睛前捲成雙筒圈圈（望遠鏡） ＋ 身體往前傾定格", line: "發現敵艦！望遠鏡拿好！雙手做成圓圈，我看誰的手在晃！" },
+      { id: 8, title: "跳舞的水母", desc: "雙腳打直站在原地，雙手波浪狀搖擺流動，定格時手要在空中", line: "水母飄過～定格！手舉高停在空中！我看誰的手在抖！" },
+      { id: 9, title: "船長木頭腿", desc: "左腳打直向前抬高不著地 ＋ 雙手交叉胸前 ＋ 面露嚴厲表情", line: "海賊船長要站得穩！左腳抬高不許掉下來，我看誰在晃！" },
+      { id: 10, title: "海膽爆發", desc: "雙腳張開大八字蹲下 ＋ 十指張開在頭頂像刺一樣 ＋ 嘴巴張大發出「啊」定格", line: "變身海膽！把你們全身的刺都露出來，誰敢笑就把誰刺穿！" },
+      { id: 11, title: "海鷗大俠", desc: "單腳站立 ＋ 雙手如翅膀向兩側展開 ＋ 嘴巴做成鳥喙狀微張", line: "海鷗飛過去了！翅膀拍好不准動，誰掉下來誰就輸了！" },
+      { id: 12, title: "電擊章魚", desc: "身體發抖 ＋ 八隻手指在空中狂抖 ＋ 眼睛翻白眼定格", line: "被海中的電鰻電到了！手指抖動～定格！不准笑出聲！" },
+      { id: 13, title: "沉沒的寶箱", desc: "雙膝跪地 ＋ 雙手緊抱胸前 ＋ 臉部做擠眉弄眼表情", line: "寶箱沉到海底了！護住寶箱，誰的眉毛在動！" },
+      { id: 14, title: "螃蟹大將軍", desc: "雙腿螃蟹步半蹲 ＋ 兩手在耳朵旁做出剪刀手（蟹腳剪剪剪）＋ 嘴巴鼓起來", line: "螃蟹大將軍巡邏！嘴巴鼓起來不准漏氣！看你們的剪刀腳能撐多久！" },
+      { id: 15, title: "海巡威嚴隊長", desc: "挺胸昂首 ＋ 右手比出帥氣敬禮手勢 ＋ 下巴抬高45度定格", line: "海軍最高敬禮！眼睛看前方，表現太完美了，通過！" }
+    ];
+
+    let currentPoseId = 1;
+
+    // 渲染 15 題選擇目錄
+    function renderGrid() {
+      const grid = document.getElementById("poseGrid");
+      grid.innerHTML = "";
+
+      poses.forEach(pose => {
+        const btn = document.createElement("button");
+        const isSelected = pose.id === currentPoseId;
+        
+        btn.className = `p-3 rounded-xl border text-left flex items-center justify-between transition active:scale-95 ${
+          isSelected 
+            ? "bg-amber-500 text-slate-950 font-black border-amber-300 shadow-lg" 
+            : "bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-750"
+        }`;
+        
+        btn.onclick = () => selectPose(pose.id);
+        btn.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2 py-0.5 rounded ${isSelected ? 'bg-slate-950 text-amber-400 font-bold' : 'bg-slate-700 text-slate-300'}">
+              ${pose.id}
+            </span>
+            <span class="text-sm font-bold">${pose.title}</span>
+          </div>
+          ${isSelected ? '<i class="fa-solid fa-circle-check text-slate-950"></i>' : ''}
+        `;
+        
+        grid.appendChild(btn);
+      });
+    }
+
+    // 選取題目
+    function selectPose(id) {
+      currentPoseId = id;
+      const pose = poses.find(p => p.id === id);
+
+      document.getElementById("poseId").innerText = `題目 ${pose.id} / 15`;
+      document.getElementById("poseTitle").innerText = `【${pose.title}】`;
+      document.getElementById("navyLine").innerText = `「${pose.line}」`;
+      document.getElementById("poseDesc").innerText = pose.desc;
+
+      renderGrid();
+      document.getElementById("displayCard").scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // 初始化頁面
+    renderGrid();
+    selectPose(1);
+  </script>
+</body>
+</html>
